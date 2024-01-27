@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 5444:5432
+    environment:
+      POSTGRES_DB: tc-pedido
+      POSTGRES_PASSWORD: postgres
+  # app:
+  #   image: ghcr.io/flavioneubauer/tc-s1-32:${APP_VERSION}
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: .
+  #   ports: 
+  #       - 8080:8080
+  #   depends_on:
+  #       - db
+  #   environment:
+  #       spring.datasource.url: jdbc:postgresql://db:5432/tc
+  #   pull_policy: always
+  #   restart: on-failure
