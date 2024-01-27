@@ -76,9 +76,7 @@ class ClienteServiceTest {
 
         ConsultaClienteResponse response = clienteService.consultarPorCpf(cpf);
 
-        // Verify that the response is not null
         assertNotNull(response);
-        // Verify that the response contains the expected cliente
         assertEquals(cliente.getId(), response.getId());
     }
 

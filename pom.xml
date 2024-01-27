@@ -183,6 +183,9 @@
                                 <include>br/com/fiap/soat1/t32/controllers/**</include>
                                 <include>br/com/fiap/soat1/t32/utils/**</include>
                             </includes>
+                            <formats>
+                                <format>XML</format>
+                            </formats>
                         </configuration>
                     </execution>
                     <execution>
