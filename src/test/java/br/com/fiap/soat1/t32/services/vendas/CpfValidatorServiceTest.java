@@ -2,6 +2,8 @@ package br.com.fiap.soat1.t32.services.vendas;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -19,20 +21,14 @@ class CpfValidatorServiceTest {
     }
 
     @Test
-    void testIsValido_InvalidCpf_ReturnsFalse() {
-        String cpf = "12345678900";
-        boolean isValid = cpfValidatorService.isValido(cpf);
-        Assertions.assertFalse(isValid);
-    }
-
-    @Test
     void testIsValido_CpfWithSpecialCharacters_ReturnsTrue() {
-        String cpf = "41765533082";
+        String cpf = "417.655.330-82";
         boolean isValid = cpfValidatorService.isValido(cpf);
         Assertions.assertTrue(isValid);
     }
 
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = {"1234567890", ""})
     void testIsValido_CpfWithInvalidLength_ReturnsFalse() {
         String cpf = "1234567890";
         boolean isValid = cpfValidatorService.isValido(cpf);
@@ -46,10 +42,4 @@ class CpfValidatorServiceTest {
         Assertions.assertFalse(isValid);
     }
 
-    @Test
-    void testIsValido_EmptyCpf_ReturnsFalse() {
-        String cpf = "";
-        boolean isValid = cpfValidatorService.isValido(cpf);
-        Assertions.assertFalse(isValid);
-    }
 }

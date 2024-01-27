@@ -18,7 +18,7 @@ import lombok.NonNull;
 
 @CucumberContextConfiguration
 @SpringBootTest(classes = Main.class, webEnvironment = WebEnvironment.DEFINED_PORT)
-public class SpringIntegrationTest {
+public class SpringIntegrationConfiguration {
     
     static ResponseResults latestResponse = null;
 

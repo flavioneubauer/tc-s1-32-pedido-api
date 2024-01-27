@@ -1,5 +1,20 @@
 package br.com.fiap.soat1.t32.controllers;
 
+import br.com.fiap.soat1.t32.models.parameters.vendas.ClienteVO;
+import br.com.fiap.soat1.t32.models.presenters.vendas.ConsultaClienteResponse;
+import br.com.fiap.soat1.t32.services.vendas.ClienteService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
 import static br.com.fiap.soat1.t32.TestHelper.asJsonString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -7,22 +22,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+@ExtendWith(MockitoExtension.class) class ClienteControllerTest {
 
-import br.com.fiap.soat1.t32.models.parameters.vendas.ClienteVO;
-import br.com.fiap.soat1.t32.models.presenters.vendas.ConsultaClienteResponse;
-import br.com.fiap.soat1.t32.services.vendas.ClienteService;
-
-class ClienteControllerTest {
-
+    @Autowired
     private MockMvc mockMvc;
 
     @Mock
@@ -35,7 +37,6 @@ class ClienteControllerTest {
 
     @BeforeEach
     public void setup() {
-        MockitoAnnotations.openMocks(this);
         clienteController = new ClienteController(clienteService);
         mockMvc = MockMvcBuilders.standaloneSetup(clienteController).build();
 
