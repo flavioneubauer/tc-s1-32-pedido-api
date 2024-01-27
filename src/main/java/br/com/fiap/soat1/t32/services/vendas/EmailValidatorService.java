@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmailValidatorService {
-    private static final String EMAIL_REGEX = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+    private static final String EMAIL_REGEX =  "^[a-z0-9+_.-]+@(.+)$";
         
     public boolean isValido(String email) {
         boolean isValido = false;
