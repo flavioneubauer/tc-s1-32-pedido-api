@@ -1,9 +1,12 @@
 package br.com.fiap.soat1.t32.controllers;
 
+import br.com.fiap.soat1.t32.TestHelper;
+import br.com.fiap.soat1.t32.enums.CategoriaProduto;
 import br.com.fiap.soat1.t32.enums.StatusPreparacaoPedido;
 import br.com.fiap.soat1.t32.exceptions.ValidationException;
+import br.com.fiap.soat1.t32.models.entities.pedidos.Produto;
 import br.com.fiap.soat1.t32.models.parameters.pedidos.PedidoVo;
-import br.com.fiap.soat1.t32.models.presenters.pedidos.CriacaoPedidoResponse;
+import br.com.fiap.soat1.t32.models.presenters.pedidos.*;
 import br.com.fiap.soat1.t32.services.PedidoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,11 +19,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.Arrays;
+import java.util.UUID;
+
 import static br.com.fiap.soat1.t32.TestHelper.asJsonString;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(PedidoController.class)
@@ -83,15 +88,28 @@ class PedidoControllerTest {
 				.andReturn();
 	}
 
-//	@Test
-//	void listarPedidos() {
-//
-//
-//	}
-//
-//	@Test
-//	void consultarStatusPagamentoPedido() {
-//
-//
-//	}
+	@Test
+	void listarPedidos() throws Exception {
+
+		ListaPedidosResponse listaPedidosResponse = ListaPedidosResponse.builder()
+				.pedidos(Arrays.asList(
+						ListaPedidosData.builder()
+								.produtos(Arrays.asList(ListaPedidosProdutoData.builder().
+										id(1L).categoria(CategoriaProduto.LANCHE)
+												.descricao("teste").quantidade(2L)
+										.build()))
+								.cliente(ListaPedidosClienteData.builder().id(UUID.randomUUID()).nome("Jose").build())
+								.statusPreparacao(StatusPreparacaoPedido.EM_PREPARACAO)
+						.build()
+				))
+				.build();
+
+		when(pedidoService.listar()).thenReturn(listaPedidosResponse);
+
+		mockMvc.perform(get("/v1/pedidos")
+						.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().is2xxSuccessful())
+				.andExpect(MockMvcResultMatchers.content().json(TestHelper.asJsonString(listaPedidosResponse)))
+				.andReturn();
+	}
 }

@@ -37,6 +37,7 @@ public class ProdutoController {
 
     private final ProdutoService produtoService;
     private final RedisTemplate<CategoriaProduto, Set<Produto>> redisTemplate;
+
     @Operation(description = "Inclui produto")
     @PostMapping(consumes = {APPLICATION_JSON_VALUE, ALL_VALUE},
             produces = {APPLICATION_JSON_VALUE, ALL_VALUE})

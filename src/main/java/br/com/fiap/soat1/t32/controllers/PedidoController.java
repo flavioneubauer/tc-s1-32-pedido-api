@@ -47,8 +47,6 @@ class PedidoController {
 
 	@GetMapping("/v1/pedidos")
 	@ApiResponse(responseCode = "200", description = "Status de pedido retornado com sucesso")
-	@ApiResponse(responseCode = "422", description = "Erro de validação",
-			content = @Content(schema = @Schema(implementation = RespostaErro.class)))
 	@Operation(description = "Lista pedidos")
 	public ResponseEntity<ListaPedidosResponse> listarPedidos() {
 		return ResponseEntity.ok(pedidoService.listar());
