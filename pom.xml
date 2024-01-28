@@ -43,6 +43,10 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
@@ -53,6 +57,17 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.lettuce</groupId>
+            <artifactId>lettuce-core</artifactId>
+            <version>6.3.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>it.ozimov</groupId>
+            <artifactId>embedded-redis</artifactId>
+            <version>0.7.3</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -181,7 +196,6 @@
                             <includes>
                                 <include>br/com/fiap/soat1/t32/services/**</include>
                                 <include>br/com/fiap/soat1/t32/controllers/**</include>
-                                <include>br/com/fiap/soat1/t32/utils/**</include>
                             </includes>
                             <formats>
                                 <format>XML</format>
@@ -203,7 +217,6 @@
                                      <includes>
                                         <include>br.com.fiap.soat1.t32.services.**</include>
                                         <include>br.com.fiap.soat1.t32.controllers.**</include>
-                                        <include>br.com.fiap.soat1.t32.utils.**</include>
                                     </includes>
                                     <limits>
                                         <limit>

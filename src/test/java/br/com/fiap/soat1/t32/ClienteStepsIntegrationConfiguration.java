@@ -44,12 +44,12 @@ public class ClienteStepsIntegrationConfiguration extends SpringIntegrationConfi
 
 	@When("the user call POST \\/v1\\/clientes")
 	public void theUserCallPOSTVClientes() throws IOException {
-		executePost("http://localhost:8080/v1/clientes", body);
+		executePost("http://localhost:8082/v1/clientes", body);
 	}
 
 	@When("the user call GET \\/v1\\/clientes\\/cpf")
 	public void theUserCallGETVClientesCpf() throws IOException {
-		executeGet("http://localhost:8080/v1/clientes/" + cpf);
+		executeGet("http://localhost:8082/v1/clientes/" + cpf);
 	}
 
 	@Then("the client receives status code of {int}")

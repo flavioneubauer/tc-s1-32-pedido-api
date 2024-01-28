@@ -7,7 +7,7 @@ import br.com.fiap.soat1.t32.models.entities.pedidos.Produto;
 
 import java.util.Set;
 
-public interface ProdutoCrudRepository extends CrudRepository<Produto, Long> {
+public interface ProdutoRepository extends CrudRepository<Produto, Long> {
 
     Set<Produto> findAllByCategoria(CategoriaProduto categoriaProduto);
 }

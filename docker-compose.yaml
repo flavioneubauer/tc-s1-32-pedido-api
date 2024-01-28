@@ -9,6 +9,12 @@ services:
     environment:
       POSTGRES_DB: tc-pedido
       POSTGRES_PASSWORD: postgres
+  cache:
+    image: redis:latest
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning
   # app:
   #   image: ghcr.io/flavioneubauer/tc-s1-32:${APP_VERSION}
   #   build:

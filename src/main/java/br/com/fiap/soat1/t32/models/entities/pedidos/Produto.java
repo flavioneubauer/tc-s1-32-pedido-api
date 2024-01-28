@@ -3,6 +3,7 @@ package br.com.fiap.soat1.t32.models.entities.pedidos;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import br.com.fiap.soat1.t32.enums.CategoriaProduto;
@@ -13,7 +14,8 @@ import br.com.fiap.soat1.t32.enums.CategoriaProduto;
 @AllArgsConstructor
 @Builder
 @Entity(name = "PRODUTO")
-public class Produto {
+@EqualsAndHashCode(of = "id")
+public class Produto implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)

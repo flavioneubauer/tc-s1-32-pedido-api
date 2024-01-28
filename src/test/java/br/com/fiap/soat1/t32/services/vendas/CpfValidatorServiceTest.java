@@ -29,8 +29,7 @@ class CpfValidatorServiceTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"1234567890", ""})
-    void testIsValido_CpfWithInvalidLength_ReturnsFalse() {
-        String cpf = "1234567890";
+    void testIsValido_CpfWithInvalidLength_ReturnsFalse(String cpf) {
         boolean isValid = cpfValidatorService.isValido(cpf);
         Assertions.assertFalse(isValid);
     }
