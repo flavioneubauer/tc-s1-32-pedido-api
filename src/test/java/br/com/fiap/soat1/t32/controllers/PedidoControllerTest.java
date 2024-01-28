@@ -4,7 +4,6 @@ import br.com.fiap.soat1.t32.TestHelper;
 import br.com.fiap.soat1.t32.enums.CategoriaProduto;
 import br.com.fiap.soat1.t32.enums.StatusPreparacaoPedido;
 import br.com.fiap.soat1.t32.exceptions.ValidationException;
-import br.com.fiap.soat1.t32.models.entities.pedidos.Produto;
 import br.com.fiap.soat1.t32.models.parameters.pedidos.PedidoVo;
 import br.com.fiap.soat1.t32.models.presenters.pedidos.*;
 import br.com.fiap.soat1.t32.services.PedidoService;
@@ -80,7 +79,8 @@ class PedidoControllerTest {
 
 	@Test
 	void testarAlterarStatusPreparacaoPedidoInvalido() throws Exception {
-		doThrow(new ValidationException("Status invalido")).when(pedidoService).alterarStatusPreparacaoPedido(1L, StatusPreparacaoPedido.FINALIZADO);
+		doThrow(new ValidationException("Status invalido")).when(pedidoService)
+				.alterarStatusPreparacaoPedido(1L, StatusPreparacaoPedido.FINALIZADO);
 
 		mockMvc.perform(put("/v1/pedidos/1/" + StatusPreparacaoPedido.FINALIZADO.name())
 						.contentType(MediaType.APPLICATION_JSON))

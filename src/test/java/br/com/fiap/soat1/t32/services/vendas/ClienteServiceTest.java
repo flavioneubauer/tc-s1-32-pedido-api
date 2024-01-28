@@ -3,7 +3,6 @@ package br.com.fiap.soat1.t32.services.vendas;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -68,7 +67,6 @@ class ClienteServiceTest {
         Cliente cliente = new Cliente();
         cliente.setCpf(cpf);
         cliente.setId(UUID.randomUUID());
-        // Set up the mock behavior
         when(clienteRepository.findByCpf(cpf)).thenReturn(cliente);
 
         ConsultaClienteResponse response = clienteService.consultarPorCpf(cpf);

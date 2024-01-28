@@ -15,6 +15,7 @@ import br.com.fiap.soat1.t32.utils.mappers.PedidoAdapter;
 import br.com.fiap.soat1.t32.utils.mappers.PedidoProdutoAdapter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +33,7 @@ public class PedidoService {
 	private final ProdutoRepository produtoRepository;
 	private final PedidoProdutoRepository pedidoProdutoRepository;
 
+	@Transactional
 	public CriacaoPedidoResponse cadastrar(PedidoVo pedidoVo) {
 
 		var pedido = PedidoAdapter.toEntity(pedidoVo);

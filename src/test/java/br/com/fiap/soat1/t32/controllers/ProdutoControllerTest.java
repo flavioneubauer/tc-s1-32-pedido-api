@@ -108,7 +108,7 @@ class ProdutoControllerTest {
 	}
 
 	@Test
-	void validarCacheExistente() throws Exception{
+	void validarCacheExistente() throws Exception {
 
 		Produto produto = new Produto();
 		produto.setId(1L);

@@ -43,16 +43,24 @@ public class ProdutoService {
 		return categoria;
 	}
 
-	private CategoriaProduto validarExclusao(Long id) {
+	private Produto getProduto(Long id){
 		var produto = produtoRepository.findById(id);
 		if(produto.isEmpty()) {
 			throw new ValidationException("Produto não localizado.");
 		}
-		return produto.get().getCategoria();
+		return produto.get();
+	}
+
+	private CategoriaProduto validarExclusao(Long id) {
+		var produto = getProduto(id);
+		return produto.getCategoria();
 	}
 
 	public void editar(Long idProduto, ProdutoVo produtoVo) {
-		Produto produto = ProdutoAdapter.toEntity(produtoVo, idProduto);
+		Produto produto = getProduto(idProduto);
+		produto.setDescricao(produtoVo.getDescricao());
+		produto.setCategoria(produtoVo.getCategoria());
+		produto.setPreco(produtoVo.getPreco());
 		this.produtoRepository.save(produto);
 	}
 
