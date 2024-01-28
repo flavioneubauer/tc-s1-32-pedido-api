@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Configuration
 public class RedisProperties {
-    private int redisPort;
-    private String redisHost;
+    private final int redisPort;
+    private final String redisHost;
 
     public RedisProperties(
       @Value("${spring.data.redis.port}") int redisPort,

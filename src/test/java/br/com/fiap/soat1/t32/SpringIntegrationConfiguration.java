@@ -25,7 +25,7 @@ public class SpringIntegrationConfiguration {
     @Autowired
     protected RestTemplate restTemplate;
 
-    void executeGet(@NonNull String url) throws IOException {
+    void executeGet(@NonNull String url) {
         final Map<String, String> headers = new HashMap<>();
         headers.put("Accept", "application/json");
         final HeaderSettingRequestCallback requestCallback = new HeaderSettingRequestCallback(headers);
@@ -41,7 +41,7 @@ public class SpringIntegrationConfiguration {
         });
     }
 
-    void executePost(@NonNull String url, String body) throws IOException {
+    void executePost(@NonNull String url, String body) {
         final Map<String, String> headers = new HashMap<>();
         headers.put("Accept", "application/json");
         headers.put("Content-type", "application/json");

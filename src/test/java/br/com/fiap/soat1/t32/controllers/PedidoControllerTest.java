@@ -18,7 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.UUID;
 
 import static br.com.fiap.soat1.t32.TestHelper.asJsonString;
@@ -50,11 +50,11 @@ class PedidoControllerTest {
 				.id(1L)
 				.build());
 
-		mockMvc.perform(post("/v1/pedidos")
-						.contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/v1/pedidos").contentType(MediaType.APPLICATION_JSON)
 						.content(asJsonString(pedidoVo)))
 				.andExpect(status().isCreated())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.id").isNumber())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.id")
+						.isNumber())
 				.andReturn();
 	}
 
@@ -62,8 +62,7 @@ class PedidoControllerTest {
 	void testarPedidoSemProduto() throws Exception {
 		when(pedidoService.cadastrar(pedidoVo)).thenThrow(new ValidationException("Produto não encontrado"));
 
-		mockMvc.perform(post("/v1/pedidos")
-						.contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/v1/pedidos").contentType(MediaType.APPLICATION_JSON)
 						.content(asJsonString(pedidoVo)))
 				.andExpect(status().is4xxClientError())
 				.andReturn();
@@ -71,8 +70,8 @@ class PedidoControllerTest {
 
 	@Test
 	void testarAlterarStatusPreparacaoPedidoComSucesso() throws Exception {
-		mockMvc.perform(put("/v1/pedidos/1/" + StatusPreparacaoPedido.EM_PREPARACAO.name())
-						.contentType(MediaType.APPLICATION_JSON))
+		mockMvc.perform(put("/v1/pedidos/1/" + StatusPreparacaoPedido.EM_PREPARACAO.name()).contentType(
+						MediaType.APPLICATION_JSON))
 				.andExpect(status().is2xxSuccessful())
 				.andReturn();
 	}
@@ -82,8 +81,8 @@ class PedidoControllerTest {
 		doThrow(new ValidationException("Status invalido")).when(pedidoService)
 				.alterarStatusPreparacaoPedido(1L, StatusPreparacaoPedido.FINALIZADO);
 
-		mockMvc.perform(put("/v1/pedidos/1/" + StatusPreparacaoPedido.FINALIZADO.name())
-						.contentType(MediaType.APPLICATION_JSON))
+		mockMvc.perform(put("/v1/pedidos/1/" + StatusPreparacaoPedido.FINALIZADO.name()).contentType(
+						MediaType.APPLICATION_JSON))
 				.andExpect(status().is4xxClientError())
 				.andReturn();
 	}
@@ -92,24 +91,27 @@ class PedidoControllerTest {
 	void listarPedidos() throws Exception {
 
 		ListaPedidosResponse listaPedidosResponse = ListaPedidosResponse.builder()
-				.pedidos(Arrays.asList(
-						ListaPedidosData.builder()
-								.produtos(Arrays.asList(ListaPedidosProdutoData.builder().
-										id(1L).categoria(CategoriaProduto.LANCHE)
-												.descricao("teste").quantidade(2L)
-										.build()))
-								.cliente(ListaPedidosClienteData.builder().id(UUID.randomUUID()).nome("Jose").build())
-								.statusPreparacao(StatusPreparacaoPedido.EM_PREPARACAO)
-						.build()
-				))
+				.pedidos(Collections.singletonList(ListaPedidosData.builder()
+						.produtos(Collections.singletonList(ListaPedidosProdutoData.builder()
+								.id(1L)
+								.categoria(CategoriaProduto.LANCHE)
+								.descricao("teste")
+								.quantidade(2L)
+								.build()))
+						.cliente(ListaPedidosClienteData.builder()
+								.id(UUID.randomUUID())
+								.nome("Jose")
+								.build())
+						.statusPreparacao(StatusPreparacaoPedido.EM_PREPARACAO)
+						.build()))
 				.build();
 
 		when(pedidoService.listar()).thenReturn(listaPedidosResponse);
 
-		mockMvc.perform(get("/v1/pedidos")
-						.contentType(MediaType.APPLICATION_JSON))
+		mockMvc.perform(get("/v1/pedidos").contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().is2xxSuccessful())
-				.andExpect(MockMvcResultMatchers.content().json(TestHelper.asJsonString(listaPedidosResponse)))
+				.andExpect(MockMvcResultMatchers.content()
+						.json(TestHelper.asJsonString(listaPedidosResponse)))
 				.andReturn();
 	}
 }

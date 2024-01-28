@@ -22,6 +22,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -81,7 +82,7 @@ class PedidoServiceTest {
 	@Test
 	void testeCadastrarComSucesso() {
 		when(pedidoRepository.save(any())).thenReturn(pedido);
-		when(produtoRepository.findAllById(any())).thenReturn(Arrays.asList(produto));
+		when(produtoRepository.findAllById(any())).thenReturn(Collections.singletonList(produto));
 
 		PedidoVo pedidoVo = new PedidoVo();
 		PedidoProduto pedidoProduto = pedido.getProdutos()

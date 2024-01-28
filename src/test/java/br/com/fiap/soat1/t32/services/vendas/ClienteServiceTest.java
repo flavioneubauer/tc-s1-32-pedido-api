@@ -70,8 +70,6 @@ class ClienteServiceTest {
         when(clienteRepository.findByCpf(cpf)).thenReturn(cliente);
 
         ConsultaClienteResponse response = clienteService.consultarPorCpf(cpf);
-
-        assertNotNull(response);
         assertEquals(cliente.getId(), response.getId());
     }
 
