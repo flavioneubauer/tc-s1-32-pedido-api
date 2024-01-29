@@ -24,59 +24,59 @@ import lombok.extern.slf4j.Slf4j;
 @ControllerAdvice
 @Slf4j
 public class HandlerResource {
-	
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<RespostaErro> tratarException(Exception e) {
-        log.error("HANDLER EXCEPTION: ", e);
-        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(getRespostaErro(e, INTERNAL_SERVER_ERROR));
-    }
 
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<RespostaErro> tratarNotFoundException(NotFoundException nfe) {
-        return ResponseEntity.status(NOT_FOUND).body(getRespostaErro(nfe, NOT_FOUND));
-    }
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<RespostaErro> tratarException(Exception e) {
+		log.error("HANDLER EXCEPTION: ", e);
+		return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(getRespostaErro(e, INTERNAL_SERVER_ERROR));
+	}
 
-    @ExceptionHandler(ValidationException.class)
-    public ResponseEntity<RespostaErro> tratarValidationException(ValidationException ve) {
-        return ResponseEntity.status(UNPROCESSABLE_ENTITY).body(getRespostaErro(ve, UNPROCESSABLE_ENTITY));
-    }
-    
-    @ExceptionHandler(DuplicateKeyException.class)
-    public ResponseEntity<RespostaErro> tratarDuplicateKeyException(DuplicateKeyException ve) {
-        return ResponseEntity.status(UNPROCESSABLE_ENTITY).body(getRespostaErro(ve, UNPROCESSABLE_ENTITY));
-    }
-    
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<RespostaErro> tratarConstraintViolationException(DataIntegrityViolationException exception) {
-        return ResponseEntity.status(UNPROCESSABLE_ENTITY).body(getRespostaErro(exception, UNPROCESSABLE_ENTITY,"Não foi possível concluir a operação devido a uma violação de chave estrangeira."));
-    }
-    
-    private RespostaErro getRespostaErro(Exception re,
-                                         HttpStatus status) {
-        return RespostaErro.builder()
-                .timestamp(DateTimeFormatter.ISO_DATE_TIME.format(LocalDateTime.now()))
-                .statusDescription(status.name())
-                .status(status.value())
-                .errors(getDetalheErro(re))
-                .build();
-    }
-    
-    private RespostaErro getRespostaErro(Exception re,
-            HttpStatus status, String mensagem) {
+	@ExceptionHandler(NotFoundException.class)
+	public ResponseEntity<RespostaErro> tratarNotFoundException(NotFoundException nfe) {
+		return ResponseEntity.status(NOT_FOUND).body(getRespostaErro(nfe, NOT_FOUND));
+	}
+
+	@ExceptionHandler(ValidationException.class)
+	public ResponseEntity<RespostaErro> tratarValidationException(ValidationException ve) {
+		return ResponseEntity.status(UNPROCESSABLE_ENTITY).body(getRespostaErro(ve, UNPROCESSABLE_ENTITY));
+	}
+
+	@ExceptionHandler(DuplicateKeyException.class)
+	public ResponseEntity<RespostaErro> tratarDuplicateKeyException(DuplicateKeyException ve) {
+		return ResponseEntity.status(UNPROCESSABLE_ENTITY).body(getRespostaErro(ve, UNPROCESSABLE_ENTITY));
+	}
+
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<RespostaErro> tratarConstraintViolationException(DataIntegrityViolationException exception) {
+		return ResponseEntity.status(UNPROCESSABLE_ENTITY).body(getRespostaErro(UNPROCESSABLE_ENTITY,"Não foi possível concluir a operação devido a uma violação de chave estrangeira."));
+	}
+
+	private RespostaErro getRespostaErro(Exception re,
+			HttpStatus status) {
+		return RespostaErro.builder()
+				.timestamp(DateTimeFormatter.ISO_DATE_TIME.format(LocalDateTime.now()))
+				.statusDescription(status.name())
+				.status(status.value())
+				.errors(getDetalheErro(re))
+				.build();
+	}
+
+	private RespostaErro getRespostaErro(
+			HttpStatus status, String mensagem) {
 		return RespostaErro.builder()
 				.timestamp(DateTimeFormatter.ISO_DATE_TIME.format(LocalDateTime.now()))
 				.statusDescription(status.name())
 				.status(status.value())
 				.errors(List.of(DetalheErro.builder()
-		                .message(mensagem)
-		                .build()))
+						.message(mensagem)
+						.build()))
 				.build();
 	}
 
-    private List<DetalheErro> getDetalheErro(Exception re) {
-        return List.of(DetalheErro.builder()
-                .message(re.getMessage())
-                .build());
-    }
+	private List<DetalheErro> getDetalheErro(Exception re) {
+		return List.of(DetalheErro.builder()
+				.message(re.getMessage())
+				.build());
+	}
 
 }
