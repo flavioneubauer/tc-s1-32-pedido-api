@@ -58,3 +58,10 @@ Existe também uma suíte de testes em BDD da parte de cliente que é executada 
 No pom.xml está configurado para validar a cobertura de testes em 80%, conforme exemplo a seguir:
 
 ![jacoco-coverage](jacoco-coverage-check.png)
+
+Existe também uma Github Action que analisa o código e a cobertura de testes, e submete o resultado para o SonarCloud.
+
+![sonarcloud](sonarcloud-pedido-api.png)
+
+URL de acesso: https://sonarcloud.io/summary/overall?id=tc-s1-32_tc-s1-32-pedido-api
+
