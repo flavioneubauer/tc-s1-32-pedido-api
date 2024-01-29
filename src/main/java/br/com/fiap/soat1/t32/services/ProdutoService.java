@@ -6,7 +6,7 @@ import br.com.fiap.soat1.t32.models.entities.pedidos.Produto;
 import br.com.fiap.soat1.t32.models.parameters.pedidos.ProdutoVo;
 import br.com.fiap.soat1.t32.models.presenters.pedidos.CriacaoProdutoResponse;
 import br.com.fiap.soat1.t32.repositories.pedidos.ProdutoRepository;
-import br.com.fiap.soat1.t32.utils.mappers.ProdutoAdapter;
+import br.com.fiap.soat1.t32.utils.ProdutoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class ProdutoService {
 		validarInclusaoAlteracao(produtoVo);
 
 		return CriacaoProdutoResponse.builder().id(
-				produtoRepository.save(ProdutoAdapter.toEntity(produtoVo, null)).getId())
+				produtoRepository.save(ProdutoMapper.toEntity(produtoVo, null)).getId())
 				.build();
 	}
 
@@ -65,6 +65,6 @@ public class ProdutoService {
 	}
 
 	public Set<Produto> listarPorCategoria(CategoriaProduto categoriaProduto) {
-		return ProdutoAdapter.toEntity(produtoRepository.findAllByCategoria(categoriaProduto));
+		return ProdutoMapper.toEntity(produtoRepository.findAllByCategoria(categoriaProduto));
 	}
 }
