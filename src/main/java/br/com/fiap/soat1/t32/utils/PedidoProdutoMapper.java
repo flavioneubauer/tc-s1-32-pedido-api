@@ -1,4 +1,4 @@
-package br.com.fiap.soat1.t32.utils.mappers;
+package br.com.fiap.soat1.t32.utils;
 
 import br.com.fiap.soat1.t32.models.entities.pedidos.Pedido;
 import br.com.fiap.soat1.t32.models.entities.pedidos.PedidoProduto;
@@ -13,7 +13,7 @@ import java.util.Set;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
-public final class PedidoProdutoAdapter {
+public final class PedidoProdutoMapper {
 
     public static List<PedidoProduto> toEntity(Map<Long, Produto> produtos,
                                                    Set<PedidoProduto> pedidoProdutos,

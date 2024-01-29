@@ -11,8 +11,8 @@ import br.com.fiap.soat1.t32.models.presenters.pedidos.ListaPedidosResponse;
 import br.com.fiap.soat1.t32.repositories.pedidos.PedidoProdutoRepository;
 import br.com.fiap.soat1.t32.repositories.pedidos.PedidoRepository;
 import br.com.fiap.soat1.t32.repositories.pedidos.ProdutoRepository;
-import br.com.fiap.soat1.t32.utils.mappers.PedidoAdapter;
-import br.com.fiap.soat1.t32.utils.mappers.PedidoProdutoAdapter;
+import br.com.fiap.soat1.t32.utils.PedidoMapper;
+import br.com.fiap.soat1.t32.utils.PedidoProdutoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,11 +36,11 @@ public class PedidoService {
 	@Transactional
 	public CriacaoPedidoResponse cadastrar(PedidoVo pedidoVo) {
 
-		var pedido = PedidoAdapter.toEntity(pedidoVo);
+		var pedido = PedidoMapper.toEntity(pedidoVo);
 		pedido = pedidoRepository.save(pedido);
 
 		var produtos = getProdutos(pedido.getProdutos());
-		var pedidoProdutosEntity = PedidoProdutoAdapter.toEntity(produtos, pedido.getProdutos(), pedido.getId());
+		var pedidoProdutosEntity = PedidoProdutoMapper.toEntity(produtos, pedido.getProdutos(), pedido.getId());
 
 		pedidoProdutoRepository.saveAll(pedidoProdutosEntity);
 
@@ -58,7 +58,7 @@ public class PedidoService {
 	}
 
 	public ListaPedidosResponse listar() {
-		return PedidoAdapter.toListaResponse(pedidoRepository.findByOrderByStatusPreparacaoAsc());
+		return PedidoMapper.toListaResponse(pedidoRepository.findByOrderByStatusPreparacaoAsc());
 	}
 
 	private Map<Long, Produto> getProdutos(Set<PedidoProduto> pedidoProdutos) {
