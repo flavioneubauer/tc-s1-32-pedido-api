@@ -11,7 +11,7 @@
     <artifactId>tc-s1-32-pedido-api</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>tc-s1-32-pedido-api</name>
-    <description>Tech Challenge - Projeto da Turma 32 - SOAT 1 - API de Pedidos</description>
+    <description>Tech Challenge - Projeto da Turma 32 - SOAT 1 - API de  Pedidos</description>
     <properties>
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
@@ -20,6 +20,8 @@
         <jacoco.outputDir>${project.basedir}/target/jacoco.exec</jacoco.outputDir>
         <sonar.organization>tc-s1-32</sonar.organization>
         <sonar.host.url>https://sonarcloud.io/</sonar.host.url>
+        <cucumber.version>7.14.0</cucumber.version>
+        <springdoc.version>2.3.0</springdoc.version>
     </properties>
 
     <dependencyManagement>
@@ -41,6 +43,10 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
@@ -53,6 +59,17 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
+            <groupId>io.lettuce</groupId>
+            <artifactId>lettuce-core</artifactId>
+            <version>6.3.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>it.ozimov</groupId>
+            <artifactId>embedded-redis</artifactId>
+            <version>0.7.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -60,7 +77,7 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.3.0</version>
+            <version>${springdoc.version}</version>
         </dependency>
         <dependency>
 	        <groupId>org.springframework.boot</groupId>
@@ -82,6 +99,35 @@
             <version>${jacoco.version}</version>
             <scope>test</scope>
         </dependency> 
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-spring</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -92,6 +138,11 @@
             <version>3.0.0</version>
             <configuration>
                 <argLine>${argLine} -Xmx512m</argLine>
+                <properties>
+                    <configurationParameters>
+                        cucumber.junit-platform.naming-strategy=long
+                    </configurationParameters>
+                </properties>
             </configuration>
         </plugin>
 
@@ -156,8 +207,10 @@
                             <includes>
                                 <include>br/com/fiap/soat1/t32/services/**</include>
                                 <include>br/com/fiap/soat1/t32/controllers/**</include>
-                                <include>br/com/fiap/soat1/t32/utils/**</include>
                             </includes>
+                            <formats>
+                                <format>XML</format>
+                            </formats>
                         </configuration>
                     </execution>
                     <execution>
@@ -175,7 +228,6 @@
                                      <includes>
                                         <include>br.com.fiap.soat1.t32.services.**</include>
                                         <include>br.com.fiap.soat1.t32.controllers.**</include>
-                                        <include>br.com.fiap.soat1.t32.utils.**</include>
                                     </includes>
                                     <limits>
                                         <limit>

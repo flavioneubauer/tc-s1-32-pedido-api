@@ -1,15 +1,13 @@
 package br.com.fiap.soat1.t32.models.entities.pedidos;
 
+import br.com.fiap.soat1.t32.enums.StatusPreparacaoPedido;
+import br.com.fiap.soat1.t32.models.entities.vendas.Cliente;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Set;
 
-import br.com.fiap.soat1.t32.enums.StatusPagamentoPedido;
-import br.com.fiap.soat1.t32.enums.StatusPreparacaoPedido;
-import br.com.fiap.soat1.t32.models.entities.vendas.Cliente;
-
-import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.EnumType.ORDINAL;
 
 @Getter
 @Setter
@@ -24,12 +22,8 @@ public class Pedido {
     private Long id;
 
     @Column
-    @Enumerated(STRING)
+    @Enumerated(ORDINAL)
     private StatusPreparacaoPedido statusPreparacao;
-
-    @Column(nullable = false)
-    @Enumerated(STRING)
-    private StatusPagamentoPedido statusPagamento;
 
     @ManyToOne
     private Cliente cliente;

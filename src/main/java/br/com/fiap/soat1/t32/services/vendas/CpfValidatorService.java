@@ -9,6 +9,10 @@ public class CpfValidatorService {
     
     public boolean isValido(String cpf) {
 
+		if(cpf == null || cpf.isEmpty()) {
+			return false;
+		}
+
 		cpf = removeCaracteresEspeciais(cpf);
 
 		// considera-se erro CPF's formados por uma sequencia de numeros iguais
