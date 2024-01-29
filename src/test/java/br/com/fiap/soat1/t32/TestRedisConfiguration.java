@@ -10,8 +10,8 @@ public class TestRedisConfiguration {
 
 	private final RedisServer redisServer;
 
-	public TestRedisConfiguration(RedisProperties redisProperties) {
-		this.redisServer = new RedisServer(redisProperties.getRedisPort());
+	public TestRedisConfiguration() {
+		this.redisServer = new RedisServer();
 	}
 
 	@PostConstruct
