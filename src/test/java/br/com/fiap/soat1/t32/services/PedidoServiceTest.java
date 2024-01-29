@@ -174,6 +174,13 @@ class PedidoServiceTest {
 	}
 
 	@Test
+	void testeAlterarPedidoInexistenteLancaException() {
+		when(pedidoRepository.findById(any())).thenReturn(Optional.empty());
+		assertThrows(ValidationException.class,
+				() -> pedidoService.alterarStatusPreparacaoPedido(2L, StatusPreparacaoPedido.RECEBIDO));
+	}
+
+	@Test
 	void testeListar() {
 		when(pedidoRepository.findByOrderByStatusPreparacaoAsc())
 				.thenReturn(Stream.of(pedido).toList());
