@@ -13,7 +13,7 @@ As principais funcionalidades são:
 
 ## Diagrama Arquitetural da comunicação entre os serviços
 
-![diagrama](tc-s1-32-entrega4-v2.drawio.png)
+![diagrama](tc-s1-32-entrega4-v6.drawio.png)
 
 ## Definição dos pacotes
 
