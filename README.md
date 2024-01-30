@@ -65,17 +65,7 @@ Existe também uma Github Action que analisa o código e a cobertura de testes, 
 
 URL de acesso: https://sonarcloud.io/summary/overall?id=tc-s1-32_tc-s1-32-pedido-api
 
-## Github Rules
-
-Foram configuradas duas rules para garantir que os códigos desenvolvidos sejam devidamente revisados e bloqueiem merges sem aprovação.
-
-Uma rule é para a master e a outra para branchs do tipo feature/* .
-
-A diferença entre elas é que a master exige a pull request e previne commits diretamente.
-
-Nas pull requests, existe a obrigatoriedade de pelo menos um revisor.
-
-Outra característica importante em ambas é a obrigatoriedade da execução da pipeline de validação do Sonar, fazendo o papel de quality gate conforme podemos ver a seguir:
+Para os demais projetos: https://sonarcloud.io/organizations/tc-s1-32/projects
 
 ![pipeline-bloqueio](pipeline-bloqueio.png)
 

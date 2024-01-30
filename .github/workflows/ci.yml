@@ -8,6 +8,7 @@ on:
       - '**.xml'
       - '**.yml'
       - '**.json'
+      - '**.md'
   push:
       branches: 
           - master
