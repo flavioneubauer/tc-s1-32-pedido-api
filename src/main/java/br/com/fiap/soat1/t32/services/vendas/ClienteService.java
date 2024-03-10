@@ -1,5 +1,6 @@
 package br.com.fiap.soat1.t32.services.vendas;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.dao.DataIntegrityViolationException;
@@ -31,6 +32,26 @@ public class ClienteService {
 			clienteRepository.save(cliente);
 		} catch (DataIntegrityViolationException e) {
 			throw new DuplicateKeyException("CPF informado já cadastrado!");
+		}
+	}
+	
+	@Transactional
+	public void ecluirCliente(ClienteVO clienteVO) throws Exception {
+		Cliente cliente = clienteRepository.findByCpf(clienteVO.getCpf());
+		
+		if(Objects.isNull(cliente)) {
+			cliente = clienteRepository.findByNome(clienteVO.getNome());
+		}
+		
+		if(Objects.isNull(cliente)) {
+			cliente = Optional.ofNullable(clienteRepository.findByEmail(clienteVO.getEmail()))
+					.orElseThrow(() -> new NotFoundException("Cliente não cadastrado."));
+		}
+				
+		try {
+			clienteRepository.delete(cliente);
+		} catch (Exception e) {
+			throw new Exception("Erro ao excluir cliente!");
 		}
 	}
 
