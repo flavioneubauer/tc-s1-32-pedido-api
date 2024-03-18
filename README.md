@@ -1,7 +1,7 @@
 # PEDIDO API
 
-Serviço responsável pelos domínios de pedidos e vendas. 
-As principais funcionalidades são: 
+Serviço responsável pelos domínios de pedidos e vendas.
+As principais funcionalidades são:
 
 - Criação do pedido
 - Alteração do status do pedido
@@ -58,3 +58,21 @@ Existe também uma suíte de testes em BDD da parte de cliente que é executada 
 No pom.xml está configurado para validar a cobertura de testes em 80%, conforme exemplo a seguir:
 
 ![jacoco-coverage](jacoco-coverage-check.png)
+
+Existe também uma Github Action que analisa o código e a cobertura de testes, e submete o resultado para o SonarCloud.
+
+![sonarcloud](sonarcloud-pedido-api.png)
+
+URL de acesso: https://sonarcloud.io/summary/overall?id=tc-s1-32_tc-s1-32-pedido-api
+
+Para os demais projetos: https://sonarcloud.io/organizations/tc-s1-32/projects
+
+![pipeline-bloqueio](pipeline-bloqueio.png)
+
+Após a validação no Sonar pelo job na Github Action:
+
+![apos](apos-pipeline.png)
+
+E depois da aprovação:
+
+![pipeline-apos](pipeline-apos-aprovacao.png)

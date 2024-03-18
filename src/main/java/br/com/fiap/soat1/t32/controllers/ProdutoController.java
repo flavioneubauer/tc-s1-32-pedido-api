@@ -7,7 +7,7 @@ import br.com.fiap.soat1.t32.models.presenters.RespostaErro;
 import br.com.fiap.soat1.t32.models.presenters.pedidos.ConsultaProdutoResponse;
 import br.com.fiap.soat1.t32.models.presenters.pedidos.CriacaoProdutoResponse;
 import br.com.fiap.soat1.t32.services.ProdutoService;
-import br.com.fiap.soat1.t32.utils.mappers.ProdutoAdapter;
+import br.com.fiap.soat1.t32.utils.ProdutoMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -94,7 +94,7 @@ public class ProdutoController {
             produtos = produtoService.listarPorCategoria(categoriaProduto);
             adicionarCache(categoriaProduto, produtos);
         }
-        return ResponseEntity.ok(ProdutoAdapter.toResponse(produtos));
+        return ResponseEntity.ok(ProdutoMapper.toResponse(produtos));
     }
 
     private void invalidateCache(CategoriaProduto categoriaProduto){

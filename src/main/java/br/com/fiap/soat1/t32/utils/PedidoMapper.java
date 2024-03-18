@@ -1,4 +1,4 @@
-package br.com.fiap.soat1.t32.utils.mappers;
+package br.com.fiap.soat1.t32.utils;
 
 import br.com.fiap.soat1.t32.models.entities.pedidos.Pedido;
 import br.com.fiap.soat1.t32.models.entities.pedidos.PedidoProduto;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
-public final class PedidoAdapter {
+public final class PedidoMapper {
 
 	private static Cliente toClienteEntity(ClientePedidoVo clientePedidoVo) {
 		if (clientePedidoVo == null)
@@ -44,7 +44,7 @@ public final class PedidoAdapter {
 	}
 
 	private static Set<PedidoProduto> toListaProdutoEntity(List<ProdutoPedidoVo> listaProdutoPedidoVo) {
-		return listaProdutoPedidoVo.stream().map(PedidoAdapter::toPedidoProdutoEntity).collect(Collectors.toSet());
+		return listaProdutoPedidoVo.stream().map(PedidoMapper::toPedidoProdutoEntity).collect(Collectors.toSet());
 	}
 
 	public static Pedido toEntity(PedidoVo pedidoVo) {
@@ -82,7 +82,7 @@ public final class PedidoAdapter {
 	public static ListaPedidosResponse toListaResponse(List<Pedido> listaPedido) {
 		return ListaPedidosResponse.builder()
 				.pedidos(listaPedido.stream()
-						.map(PedidoAdapter::toListaVo)
+						.map(PedidoMapper::toListaVo)
 						.toList()).build();
 	}
 

@@ -15,16 +15,16 @@ services:
     ports:
       - '6379:6379'
     command: redis-server --save 20 1 --loglevel warning
-  # app:
-  #   image: ghcr.io/flavioneubauer/tc-s1-32:${APP_VERSION}
-  #   build:
-  #     dockerfile: Dockerfile
-  #     context: .
-  #   ports: 
-  #       - 8080:8080
-  #   depends_on:
-  #       - db
-  #   environment:
-  #       spring.datasource.url: jdbc:postgresql://db:5432/tc
-  #   pull_policy: always
-  #   restart: on-failure
+  app:
+   image: ms-pedido:latest
+   build:
+     dockerfile: Dockerfile
+     context: .
+   ports:
+       - 8080:8080
+   depends_on:
+       - db
+   environment:
+       spring.datasource.url: jdbc:postgresql://db:5432/tc-pedido
+   pull_policy: always
+   restart: on-failure

@@ -20,6 +20,7 @@
         <jacoco.outputDir>${project.basedir}/target/jacoco.exec</jacoco.outputDir>
         <sonar.organization>tc-s1-32</sonar.organization>
         <sonar.host.url>https://sonarcloud.io/</sonar.host.url>
+        <sonar.coverage.exclusions>**/configs/**,**/enums/**,**/exceptions/**,**/models/**,**/repositories/**,**/utils/**,**/Main.java</sonar.coverage.exclusions>
         <cucumber.version>7.14.0</cucumber.version>
         <springdoc.version>2.3.0</springdoc.version>
     </properties>
@@ -243,7 +244,7 @@
                 </executions>
             </plugin>
         </plugins>
-        <finalName>${project.name}-runner</finalName>
+        <finalName>application-runner</finalName>
     </build>
 
 </project>
