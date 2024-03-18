@@ -9,4 +9,10 @@ import br.com.fiap.soat1.t32.models.entities.vendas.Cliente;
 public interface ClienteRepository  extends CrudRepository<Cliente, UUID> {
 
 	public Cliente findByCpf(String cpf);
+	
+	public Cliente findByNome(String nome);
+	
+	public Cliente findByEmail(String email);
+	
+	public void delete(Cliente cliente); 
 }

@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,6 +44,17 @@ public class ClienteController {
     public ResponseEntity<Void> cadastrarCliente(@RequestBody @Valid ClienteVO clienteVO) {
 		clienteService.cadastrar(clienteVO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+    
+    @Operation(description = "Exclui cliente")
+    @DeleteMapping(consumes = {APPLICATION_JSON_VALUE, ALL_VALUE},
+            produces = {ALL_VALUE})
+	@ApiResponse(responseCode = "200", description = "Cliente excluido com sucesso")
+	@ApiResponse(responseCode = "422", description = "Erro de validação",
+			content = @Content(schema = @Schema(implementation = RespostaErro.class)))
+    public ResponseEntity<Void> excluirCliente(@RequestBody @Valid ClienteVO clienteVO) throws Exception {
+		clienteService.ecluirCliente(clienteVO);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 	
 	@Operation(description = "Consultar cliente por CPF")
