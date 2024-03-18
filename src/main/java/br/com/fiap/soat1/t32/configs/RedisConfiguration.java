@@ -2,9 +2,11 @@ package br.com.fiap.soat1.t32.configs;
 
 import br.com.fiap.soat1.t32.enums.CategoriaProduto;
 import br.com.fiap.soat1.t32.models.entities.pedidos.Produto;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 
@@ -13,10 +15,20 @@ import java.util.Set;
 @Configuration
 public class RedisConfiguration {
 
+	@Value("${spring.data.redis.host}")
+	private String host;
+
+	@Value("${spring.data.redis.port}")
+	private int port;
+
 	@Bean
-	LettuceConnectionFactory connectionFactory() {
-		return new LettuceConnectionFactory();
+	public LettuceConnectionFactory jedisConnectionFactory() {
+		RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
+		redisStandaloneConfiguration.setHostName(host);
+		redisStandaloneConfiguration.setPort(port);
+		return new LettuceConnectionFactory(redisStandaloneConfiguration);
 	}
+
 	@Bean
 	RedisTemplate<CategoriaProduto, Set<Produto>> redisTemplate(RedisConnectionFactory connectionFactory) {
 		RedisTemplate<CategoriaProduto, Set<Produto>> template = new RedisTemplate<>();
