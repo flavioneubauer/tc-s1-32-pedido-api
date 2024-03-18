@@ -6,5 +6,6 @@ import lombok.Data;
 @Data
 @Builder
 public class CriacaoPedidoResponse {
-	private Long id;
+	private Long idPedido;
+	private Long idPagamento;
 }

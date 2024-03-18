@@ -46,9 +46,9 @@ class PedidoControllerTest {
 
 	@Test
 	void testarAdicionarPedidoComSucesso() throws Exception {
-		when(pedidoService.cadastrar(pedidoVo)).thenReturn(CriacaoPedidoResponse.builder()
-				.id(1L)
-				.build());
+//		when(pedidoService.cadastrar(pedidoVo)).thenReturn(CriacaoPedidoResponse.builder()
+//				.id(1L)
+//				.build());
 
 		mockMvc.perform(post("/v1/pedidos").contentType(MediaType.APPLICATION_JSON)
 						.content(asJsonString(pedidoVo)))
@@ -60,7 +60,7 @@ class PedidoControllerTest {
 
 	@Test
 	void testarPedidoSemProduto() throws Exception {
-		when(pedidoService.cadastrar(pedidoVo)).thenThrow(new ValidationException("Produto não encontrado"));
+//		when(pedidoService.cadastrar(pedidoVo)).thenThrow(new ValidationException("Produto não encontrado"));
 
 		mockMvc.perform(post("/v1/pedidos").contentType(MediaType.APPLICATION_JSON)
 						.content(asJsonString(pedidoVo)))

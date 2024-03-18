@@ -11,6 +11,8 @@ import br.com.fiap.soat1.t32.models.entities.vendas.Cliente;
 import br.com.fiap.soat1.t32.models.parameters.pedidos.ClientePedidoVo;
 import br.com.fiap.soat1.t32.models.parameters.pedidos.PedidoVo;
 import br.com.fiap.soat1.t32.models.parameters.pedidos.ProdutoPedidoVo;
+import br.com.fiap.soat1.t32.models.presenters.pedidos.CriacaoPedidoRequest;
+import br.com.fiap.soat1.t32.models.presenters.pedidos.CriacaoPedidoResponse;
 import br.com.fiap.soat1.t32.repositories.pedidos.PedidoProdutoRepository;
 import br.com.fiap.soat1.t32.repositories.pedidos.PedidoRepository;
 import br.com.fiap.soat1.t32.repositories.pedidos.ProdutoRepository;
@@ -96,9 +98,12 @@ class PedidoServiceTest {
 		pedidoVo.getCliente()
 				.setId(pedido.getCliente()
 						.getId());
+		CriacaoPedidoRequest criacaoPedidoRequest = new CriacaoPedidoRequest();
+		criacaoPedidoRequest.setPedido(pedidoVo);
+		criacaoPedidoRequest.setIdPagamento(1L);
 
-		assertEquals(1L, pedidoService.cadastrar(pedidoVo)
-				.getId());
+		CriacaoPedidoResponse response = pedidoService.cadastrar(criacaoPedidoRequest);
+		assertEquals(1L, response.getIdPedido());
 	}
 
 	@Test
