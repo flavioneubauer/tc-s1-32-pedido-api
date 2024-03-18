@@ -49,7 +49,12 @@ public class ClienteService {
 		}
 				
 		try {
-			clienteRepository.delete(cliente);
+
+			cliente.setCpf("LGPD");
+			cliente.setNome("Cliente removido por LGPD");
+			cliente.setEmail("CLiente removido por LGPD");
+
+			clienteRepository.save(cliente);
 		} catch (Exception e) {
 			throw new Exception("Erro ao excluir cliente!");
 		}
