@@ -38,6 +38,7 @@ public class RedisConfiguration {
 		redisStandaloneConfiguration.setDatabase(database);
 		redisStandaloneConfiguration.setUsername(username);
 		redisStandaloneConfiguration.setPassword(password);
+
 		return new LettuceConnectionFactory(redisStandaloneConfiguration);
 	}
 
