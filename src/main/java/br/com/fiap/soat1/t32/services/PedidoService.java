@@ -5,7 +5,7 @@ import br.com.fiap.soat1.t32.exceptions.ValidationException;
 import br.com.fiap.soat1.t32.models.entities.pedidos.Pedido;
 import br.com.fiap.soat1.t32.models.entities.pedidos.PedidoProduto;
 import br.com.fiap.soat1.t32.models.entities.pedidos.Produto;
-import br.com.fiap.soat1.t32.models.parameters.pedidos.PedidoVo;
+import br.com.fiap.soat1.t32.models.presenters.pedidos.CriacaoPedidoRequest;
 import br.com.fiap.soat1.t32.models.presenters.pedidos.CriacaoPedidoResponse;
 import br.com.fiap.soat1.t32.models.presenters.pedidos.ListaPedidosResponse;
 import br.com.fiap.soat1.t32.repositories.pedidos.PedidoProdutoRepository;
@@ -34,9 +34,8 @@ public class PedidoService {
 	private final PedidoProdutoRepository pedidoProdutoRepository;
 
 	@Transactional
-	public CriacaoPedidoResponse cadastrar(PedidoVo pedidoVo) {
-
-		var pedido = PedidoMapper.toEntity(pedidoVo);
+	public CriacaoPedidoResponse cadastrar(CriacaoPedidoRequest criacaoPedidoRequest) {
+		var pedido = PedidoMapper.toEntity(criacaoPedidoRequest.getPedido());
 		pedido = pedidoRepository.save(pedido);
 
 		var produtos = getProdutos(pedido.getProdutos());
@@ -44,7 +43,9 @@ public class PedidoService {
 
 		pedidoProdutoRepository.saveAll(pedidoProdutosEntity);
 
-		return CriacaoPedidoResponse.builder().id(pedido.getId()).build();
+		return CriacaoPedidoResponse.builder().idPedido(pedido.getId())
+				.idPagamento(criacaoPedidoRequest.getIdPagamento())
+				.build();
 	}
 
 	public void alterarStatusPreparacaoPedido(Long id, StatusPreparacaoPedido statusPreparacaoPedido) {

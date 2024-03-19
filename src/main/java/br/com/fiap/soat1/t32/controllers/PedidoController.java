@@ -1,9 +1,7 @@
 package br.com.fiap.soat1.t32.controllers;
 
 import br.com.fiap.soat1.t32.enums.StatusPreparacaoPedido;
-import br.com.fiap.soat1.t32.models.parameters.pedidos.PedidoVo;
 import br.com.fiap.soat1.t32.models.presenters.RespostaErro;
-import br.com.fiap.soat1.t32.models.presenters.pedidos.CriacaoPedidoResponse;
 import br.com.fiap.soat1.t32.models.presenters.pedidos.ListaPedidosResponse;
 import br.com.fiap.soat1.t32.services.PedidoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,8 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.http.HttpStatus.CREATED;
-
 @Tag(name = "Pedido", description = "API de Pedido")
 @RestController
 @RequiredArgsConstructor
@@ -25,15 +21,6 @@ import static org.springframework.http.HttpStatus.CREATED;
 class PedidoController {
 
 	private final PedidoService pedidoService;
-
-	@PostMapping("/v1/pedidos")
-	@ApiResponse(responseCode = "201", description = "Pedido criado com sucesso")
-	@ApiResponse(responseCode = "422", description = "Erro de validação",
-			content = @Content(schema = @Schema(implementation = RespostaErro.class)))
-	@Operation(description = "Inclui pedido")
-	public ResponseEntity<CriacaoPedidoResponse> adicionarPedido(@RequestBody PedidoVo pedidoVo) {
-		return ResponseEntity.status(CREATED).body(pedidoService.cadastrar(pedidoVo));
-	}
 
 	@PutMapping("/v1/pedidos/{id}/{status}")
 	@ApiResponse(responseCode = "204", description = "Status de preparação do pedido alterado com sucesso")
